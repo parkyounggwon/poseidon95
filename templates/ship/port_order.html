@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>port</title>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjnR2H5bYr0tUZR9HWd0Rcoiy6C8dbKWo&callback=initMap&region=kr"></script>
+
+<script type="text/javascript">
+    const global_variable_order_locations ={{order_locations|safe}}
+    const global_variable_order_size ={{order_size_text|safe}}
+    const global_variable_order_area ={{order_area_text|safe}}
+    const global_variable_order_date_start ={{order_date_start_text|safe}}
+    const global_variable_order_date_end ={{order_date_end_text|safe}}
+</script>
+
+<script type="text/javascript" src="/static/js/port_order.js"></script>
+
+</head>
+
+<body>
+  <h1>good day order_port html   </h1>
+<table>
+  <thead>
+        <tr>
+             <form action="index_order" method="post">
+                  {% csrf_token %}
+             <td>
+                    <label>area </label>
+                    <select id="order_area" name="order_area">
+                    <option selected value="Click Here">select</option>
+                    <option value="pacific"> pacific </option>
+                    <option value="indian"> indian  </option>
+                    <option value="atlantic"> atlantic </option>
+                    <option value="med"> mediterranean </option>
+                    <option value="sa"> south america </option>
+                    </select>
+            </td>
+            <td>
+                    <label>order-size</label>
+                    <select id="order_size" name="order_size">
+                    <option selected value="Click Here">select</option>
+                        <option value="10000" >10,000 - 20,000 </option>
+                        <option value="20000" >20,000 - 30,000 </option>
+                        <option value="30000" >30,000 - 40,000 </option>
+                        <option value="40000" >40,000 - 50,000 </option>
+                        <option value="50000" >50,000 - 60,000 </option>
+                        <option value="60000" >60,000 - 70,000 </option>
+                        <option value="70000" >70,000 - 90,000 </option>
+                    </select>
+            </td>
+            <td>
+                    <label>start date</label>
+                    <input type="date" id="order_date_start" name="order_date_start" value=" "
+                            min="min_date" max="max_date">
+                    <label>end date</label>
+                    <input type="date" id="order_date_end" name="order_date_end" value=" "
+                            min="min_date" max="max_date">
+            </td>
+            <td>
+                <input type="submit" value="search" class="btn">
+            </td>
+            </form>
+        </tr>
+</table>
+
+  <table>
+     <thead align="center">
+        <tr class="thead-dark">
+            <th>order_cargo</th>
+            <th>quantity</th>
+            <th>laydate</th>
+            <th>canceldate</th>
+            <th>loading_area</th>
+            <th>discharging_area</th>
+        </tr>
+     </thead>
+     <tbody id="order_list" align="left"></tbody>
+  </table>
+  <br>
+  <br>
+  <div id="map" style="width:80%; height: 70vh;"></div>
+
+<script>
+let today = new Date()
+
+const min_date = new Date(today)
+const max_date = new Date(today)
+console.log('const min_date :',min_date )
+min_date.setDate(today.getDate() - 90)
+max_date.setDate(today.getDate() + 180)
+console.log('min_date :',  min_date)
+console.log('max_date :',  max_date)
+
+
+if (order_date_start = null) {
+    document.getElementById('order_date_start').value = new Date().toISOString().slice(0, 10)
+    document.getElementById('order_date_end').value = new Date().toISOString().slice(0, 10)
+    }else{
+        document.getElementById('order_date_start').value = global_variable_order_date_start
+        document.getElementById('order_date_end').value = global_variable_order_date_end
+    }
+
+document.querySelector('#cargo_size [value="' + global_variable_order_size + '"]').selected = true;
+document.querySelector('#cargo_area [value="' + global_variable_order_area + '"]').selected = true;
+</script>
+
+<script type="text/javascript" src="/static/js/locationList_order.js"></script>
+<script type="text/javascript" src="/static/js/port_ship_select.js"></script>
+<script type="text/javascript" src="/static/js/date.js"></script>
+</body>
+</html>
+

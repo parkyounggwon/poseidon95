@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+        <tr class="thead-dark">
+            <th>ship_name</th>
+            <th>deadweight</th>
+            <th>built</th>
+            <th>ship_date</th>
+            <th>port</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if ship_list %}
+        {% for ship in ship_list %}
+        <tr>
+            <!-- 페이지 번호 공식 -->
+            <td class="text-start"><a href="{% url 'ship:detail' ship.ship_name %}">
+                 {{ship.ship_name}}  </a> </td>
+            <td> {{ship.deadweight}} </td>
+            <td> {{ship.built}} </td>
+            <td> {{ship.ship_date}} </td>
+            <td> {{ship.ship_port}} </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+
+        <tr>
+            <td colspan="3"> ship list </td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <br>
+    <br>
+
+  <div id="map" style="width:70%; height: 50vh;"></div>
+
+  <script>
+    function initMap() {
+        var seoul = { lat: 37.5642135 ,lng: 127.0016985 };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 3,
+            center: seoul
+        });
+        google.maps.event.addListener(map, 'click', function(event){
+            // Add marker
+            addMarker({coords:event.latLng});
+        });
+
+
+    }
+  </script>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjnR2H5bYr0tUZR9HWd0Rcoiy6C8dbKWo&callback=initMap&region=kr"></script>
+
+
+</body>
+</html>
